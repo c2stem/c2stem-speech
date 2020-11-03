@@ -12,7 +12,7 @@ const ExpressError = require('./utils/ExpressError');
 const catchAsync = require('./utils/catchAsync');
 
 const speechDetection = require('./routes/speechDetection');
-
+const dashboardRoute = require('./routes/dashboardRoute');
 port = process.env.PORT || 8201;
 mongo_uri = process.env.MONGO_URI || 'mongodb://localhost:27017/speech';
 
@@ -46,6 +46,7 @@ app.get('/', (req, res) => {
 })
 
 app.use('/speechDetection', speechDetection)
+app.use('/dashboard', dashboardRoute)
 
 app.all('*', (req, res, next) => {
     next(new ExpressError('Page Not Found', 404))

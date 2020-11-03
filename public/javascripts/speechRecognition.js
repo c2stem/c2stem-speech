@@ -20,7 +20,17 @@ speechbttn.addEventListener('click', () => {
         console.log("Speech detection ended");
         recognition.stop();
     }
+    
 });
+
+window.onload = (event) => {
+    try{
+        var ifr_window = document.getElementsByTagName("iframe")[0].contentWindow;
+        console.log(ifr_window.world);
+    }catch(e){
+        console.log(e)
+    }
+  };
 
 recognition.addEventListener('speechstart', () => {
     console.log('Speech has been detected.');
@@ -32,11 +42,8 @@ recognition.addEventListener('result', (e) => {
     let last = e.results.length - 1;
     let text = e.results[last][0].transcript;
     let ipadd = '';
-    console.log(text);
-    console.log('Confidence: ' + e.results[0][0].confidence);
     $.getJSON("https://api.ipify.org?format=json", function(data) { 
-            ipadd = data.ip;                                
-            console.log(data.ip); 
+            ipadd = data.ip;
             let speechdata = {
               user: ipadd,
               speechData: text
@@ -59,7 +66,6 @@ recognition.addEventListener('speechend', () => {
 });
   
 recognition.addEventListener('error', (e) => {
-//   outputBot.textContent = 'Error: ' + e.error;
     console.log(e);
 });
 
