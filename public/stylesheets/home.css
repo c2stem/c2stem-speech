@@ -1,0 +1,18 @@
+html, body {
+    min-height: 100% !important;
+    height: 100% !important;
+}
+
+button{
+    background-color: red;
+}
+
+.navbar{
+    padding: 5px;
+}
+
+iframe {
+    width:100%; 
+    height:92%;
+    display: block;
+}
