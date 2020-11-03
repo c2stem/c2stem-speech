@@ -34,7 +34,24 @@ recognition.addEventListener('result', (e) => {
     let ipadd = '';
     console.log(text);
     console.log('Confidence: ' + e.results[0][0].confidence);
- 
+    $.getJSON("https://api.ipify.org?format=json", function(data) { 
+            ipadd = data.ip;                                
+            console.log(data.ip); 
+            let speechdata = {
+              user: ipadd,
+              speechData: text
+            }
+            fetch('/speechDetection', {method: 'POST', headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
+              body: JSON.stringify(speechdata)}).then(function(response) {
+              if(response.ok) {
+                return;
+              }
+              throw new Error('Request failed.');
+            })
+            .catch(function(error) {
+              console.log(error);
+            });
+        }) 
 });
 
 recognition.addEventListener('speechend', () => {
@@ -45,3 +62,5 @@ recognition.addEventListener('error', (e) => {
 //   outputBot.textContent = 'Error: ' + e.error;
     console.log(e);
 });
+
+  
