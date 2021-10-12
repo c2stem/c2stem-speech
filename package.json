@@ -4,6 +4,7 @@
   "description": "speech recognition integration with c2stem",
   "main": "index.js",
   "scripts": {
+    "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -22,6 +23,7 @@
     "dotenv": "^8.2.0",
     "ejs": "^3.1.5",
     "express": "^4.17.1",
-    "mongoose": "^5.10.11"
+    "mongoose": "^5.10.11",
+    "nodemon": "^2.0.13"
   }
 }

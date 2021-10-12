@@ -10,27 +10,20 @@ recognition.maxAlternatives = 1;
 
 let speechbttn = document.querySelector('button');
 speechbttn.addEventListener('click', () => {
-    if(speechbttn.innerHTML=== "Start Recording"){
+    if(speechbttn.innerHTML.indexOf("Start Recording") > -1){
         speechbttn.style.backgroundColor='#4cae4c'
         speechbttn.innerHTML= "Stop Recording"
+        speechbttn.title = "click to stop recording"
         recognition.start();
-    }else if(speechbttn.innerHTML=== "Stop Recording"){
+    }else if(speechbttn.innerHTML.indexOf("Stop Recording") > -1){
         speechbttn.style.backgroundColor='red'
         speechbttn.innerHTML= "Start Recording"
+        speechbttn.title = "click to stop recording"
         console.log("Speech detection ended");
         recognition.stop();
     }
     
 });
-
-window.onload = (event) => {
-    try{
-        var ifr_window = document.getElementsByTagName("iframe")[0].contentWindow;
-        console.log(ifr_window.world);
-    }catch(e){
-        console.log(e)
-    }
-  };
 
 recognition.addEventListener('speechstart', () => {
     console.log('Speech has been detected.');
