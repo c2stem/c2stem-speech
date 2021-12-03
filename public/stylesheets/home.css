@@ -11,8 +11,28 @@ button{
     padding: 5px;
 }
 
-iframe {
-    width:100%; 
-    height:92%;
+.build-environment {
+    width: 100%;
+    height: 92%;
     display: block;
+  }
+
+.dropdown {
+    display: inline;
 }
+
+.form-check-label{
+    color: white;
+}
+
+#save_interval{
+    color: white;
+}
+.bttngrp{
+    display: inline;
+}
+
+ .form-check{
+     float: left;
+     padding-right: 20px;
+ }
