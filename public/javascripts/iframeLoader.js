@@ -1,4 +1,3 @@
-document.domain = "c2stem.org"
 var c2stem_URL = 'https://physdev.c2stem.org';
 var login_URL = 'https://login.c3stem.org/index.html?redirect='
 
