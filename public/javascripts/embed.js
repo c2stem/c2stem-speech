@@ -1,5 +1,5 @@
 
-window.document.domain = "c2stem.org"
+document.domain = "c2stem.org"
 
 function runProject(event) {
   try {
