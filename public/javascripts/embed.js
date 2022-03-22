@@ -1,3 +1,6 @@
+
+window.document.domain = "c2stem.org"
+
 function runProject(event) {
   try {
     var iframe = document.getElementById("iframe_id"),
