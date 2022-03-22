@@ -1,0 +1,47 @@
+html, body {
+    min-height: 100% !important;
+    height: 100% !important;
+}
+
+.navbar{
+    padding: 5px;
+}
+
+.modelpanel {
+ max-width: 50%;
+}
+
+.title {
+    padding: 10px;
+}
+.title h1{
+    display: flex;
+    justify-content: center;
+}
+
+.actionpanel{
+    background-color: darkgray;
+}
+
+.actionpanel h5{
+    padding: 10px;
+}
+.buttonsbar {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    border-style: groove;
+    padding: 5px;
+}
+
+.start-button{
+    color: green;
+}
+
+.pause-button{
+    color: yellow;
+}
+
+.stop-button{
+    color: red;
+}

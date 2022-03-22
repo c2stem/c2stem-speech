@@ -48,6 +48,10 @@ app.get('/', (req, res) => {
 app.use('/speechDetection', speechDetection)
 app.use('/dashboard', dashboardRoute)
 
+app.get('/embed', (req, res) => {
+    res.render('embed');
+})
+
 app.all('*', (req, res, next) => {
     next(new ExpressError('Page Not Found', 404))
 })
