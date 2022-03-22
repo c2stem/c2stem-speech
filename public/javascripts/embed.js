@@ -120,13 +120,11 @@ function _requestPromise(request, data) {
 }
 
 function logout() {
-  try {
-    var iframe = document.getElementById("iframe_id"),
-      ide = iframe.contentWindow.world.children[0];
-    ide.logout();
-  } catch (error) {
-    alert(error.message);
-  }
+    var serverUrl = "https://physdev.c2stem.org";
+    var request = new XMLHttpRequest();
+    request.open('POST', serverUrl + '/api/logout', true);
+    request.withCredentials = true;
+    return this._requestPromise(request);
 }
 
 function isloggedIn() {
