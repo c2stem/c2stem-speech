@@ -1,5 +1,44 @@
 document.domain = "c2stem.org";
 
+if (!window.localStorage.getItem("currentProject")) {
+  window.localStorage.setItem("currentproject", "Spice-water-runoff");
+}
+
+function updateIframe(name) {
+  let slothSrc =
+      "https://physdev.c2stem.org/?action=present&Username=naveed&ProjectName=template&embedMode&noExitWarning&noRun",
+    spiceSrc =
+      "https://physdev.c2stem.org/?action=present&Username=naveed&ProjectName=spice-template&embedMode&noExitWarning&noRun";
+
+  try {
+    var iframe = document.getElementById("iframe_id");
+    if (name == "1D sloth") {
+      iframe.setAttribute("src", slothSrc);
+      window.localStorage.setItem("currentproject", "1D sloth");
+    } else if (name == "Spice-water-runoff") {
+      iframe.setAttribute("src", spiceSrc);
+      window.localStorage.setItem("currentproject", "spice-water-runoff");
+    }
+  } catch (error) {
+    alert(error.message);
+  }
+}
+
+function openCode() {
+  var currentproject = window.localStorage.getItem("currentproject");
+  if (currentproject == "1D sloth") {
+    window.open(
+      "https://physdev.c2stem.org/?action=present&Username=naveed&ProjectName=template&noExitWarning&noRun",
+      "_blank"
+    );
+  } else if (currentproject == "Spice-water-runoff") {
+    window.open(
+      "https://physdev.c2stem.org/?action=present&Username=naveed&ProjectName=spice-template&embedMode&noExitWarning&noRun",
+      "_blank"
+    );
+  }
+}
+
 function runProject(event) {
   try {
     var iframe = document.getElementById("iframe_id"),
@@ -68,15 +107,15 @@ function stopProject() {
   }
 }
 
-let authBtton = document.getElementById("auth")
-authBtton.addEventListener('click', () => {
-    if(authBtton.innerHTML.indexOf("Login") > -1){
-        authBtton.innerHTML = "LogOut"
-        login()
-    }else if(authBtton.innerHTML.indexOf("LogOut") > -1){
-        authBtton.innerHTML = "Login"
-        logout()
-    }
+let authBtton = document.getElementById("auth");
+authBtton.addEventListener("click", () => {
+  if (authBtton.innerHTML.indexOf("Login") > -1) {
+    authBtton.innerHTML = "LogOut";
+    login();
+  } else if (authBtton.innerHTML.indexOf("LogOut") > -1) {
+    authBtton.innerHTML = "Login";
+    logout();
+  }
 });
 
 function login() {
@@ -120,23 +159,81 @@ function _requestPromise(request, data) {
 }
 
 function logout() {
-    var serverUrl = "https://physdev.c2stem.org";
-    var request = new XMLHttpRequest();
-    request.open('POST', serverUrl + '/api/logout', true);
-    request.withCredentials = true;
-    return this._requestPromise(request);
+  var serverUrl = "https://physdev.c2stem.org";
+  var request = new XMLHttpRequest();
+  request.open("POST", serverUrl + "/api/logout", true);
+  request.withCredentials = true;
+  return this._requestPromise(request);
 }
 
 function isloggedIn() {
   try {
     var iframe = document.getElementById("iframe_id"),
       ide = iframe.contentWindow.world.children[0];
-    if(ide.cloud.username){
-        return true;
-    }else{
-        return false;
+    if (ide.cloud.username) {
+      return true;
+    } else {
+      return false;
     }
   } catch (error) {
     alert(error.message);
   }
+}
+
+function getData() {
+  try {
+    var dhButtn = document.getElementById('designHistory');
+    var iframe = document.getElementById("iframe_id"),
+      ide = iframe.contentWindow.world.children[0];
+    var gb = ide.globalVariables;
+    var designHistory = gb.getVar("design history");
+    var dhContents = designHistory.contents;
+    if(!(document.getElementById("closeTable"))){
+        createCloseBttn();
+    }
+    dhButtn.innerHTML = "Refresh Table";
+    drawTable(dhContents);
+  } catch (error) {
+    alert(error.message);
+  }
+}
+
+google.charts.load("current", { packages: ["table"] });
+
+function drawTable(contents) {
+  var data = new google.visualization.DataTable();
+  var dhHeaders = contents[0].contents;
+
+  for (let i = 0; i < dhHeaders.length; i++) {
+    if( i==0 || i==3 || i==4 || i==5){
+        data.addColumn("number", dhHeaders[i]);
+    }else{
+        data.addColumn("string", dhHeaders[i]);
+    }
+  }
+  for (let j = 1; j < contents.length; j++) {
+    data.addRow(contents[j].asArray());
+  }
+  var table = new google.visualization.Table(document.getElementById("table"));
+
+  table.draw(data, { showRowNumber: true, width: "100%", height: "100%" });
+}
+
+function createCloseBttn(){
+    var dhButtn = document.getElementById('designHistory');
+    const buttngrp = document.getElementById("bttngrp");
+    var closebttn = document.createElement('BUTTON');
+    closebttn.id = "closeTable";
+    closebttn.className = "btn btn-outline-dark";
+    closebttn.innerHTML = "Close Table";
+    buttngrp.appendChild(closebttn);
+    var tabDiv = document.getElementById("table")
+
+    var clickHandler = function(){
+        tabDiv.removeChild(tabDiv.firstChild);
+        dhButtn.innerHTML="Get Design History"
+        closebttn.removeEventListener('click', clickHandler, false);
+        closebttn.parentNode.removeChild(closebttn);
+    }
+    closebttn.addEventListener('click', clickHandler, false)
 }

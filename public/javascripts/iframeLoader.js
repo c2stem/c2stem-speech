@@ -13,7 +13,7 @@ class IframeLoader {
             this.element.setAttribute('height', '100%');
             this.element.setAttribute('width', '100%');
             this.element.setAttribute('frameborder', '0');
-            this.element.setAttribute('sandbox', 'allow-scripts allow-same-origin');
+            // this.element.setAttribute('sandbox', 'allow-scripts allow-same-origin');
             container.appendChild(this.element);
         }
     }
