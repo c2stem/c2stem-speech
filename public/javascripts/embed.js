@@ -33,7 +33,7 @@ function openCode() {
     );
   } else if (currentproject == "Spice-water-runoff") {
     window.open(
-      "https://physdev.c2stem.org/?action=present&Username=naveed&ProjectName=spice-template&embedMode&noExitWarning&noRun",
+      "https://physdev.c2stem.org/?action=present&Username=naveed&ProjectName=spice-template&noExitWarning&noRun",
       "_blank"
     );
   }
